@@ -83,7 +83,8 @@ CREATE TABLE IF NOT EXISTS StockStats (
   coefficient_of_variance REAL,
   beta REAL,
   PRIMARY KEY(stock_symbol, from_date, to_date),
-  FOREIGN KEY(stock_symbol) REFERENCES Stocks(symbol)
+  FOREIGN KEY(stock_symbol) REFERENCES Stocks(symbol),
+  CHECK(from_date < to_date)
 )
 
 CREATE TABLE IF NOT EXISTS StockPairStats (
@@ -95,7 +96,9 @@ CREATE TABLE IF NOT EXISTS StockPairStats (
   correlation REAL,
   PRIMARY KEY(low_stock_symbol, high_stock_symbol, from_date, to_date),
   FOREIGN KEY(low_stock_symbol) REFERENCES Stocks(symbol),
-  FOREIGN KEY(high_stock_symbol) REFERENCES Stocks(symbol)
+  FOREIGN KEY(high_stock_symbol) REFERENCES Stocks(symbol),
+  CHECK(low_stock_symbol < high_stock_symbol),
+  CHECK(from_date < to_date)
 )
 
 CREATE TABLE IF NOT EXISTS FriendStates (
@@ -106,7 +109,8 @@ CREATE TABLE IF NOT EXISTS FriendStates (
   requested_at TIMESTAMP
   PRIMARY KEY(low_user_id, high_user_id),
   FOREIGN KEY(low_user_id) REFERENCES Users(id),
-  FOREIGN KEY(high_user_id) REFERENCES Users(id)
+  FOREIGN KEY(high_user_id) REFERENCES Users(id),
+  CHECK(low_user_id < high_user_id)
 )
 
 CREATE TABLE IF NOT EXISTS StockLists (
@@ -141,7 +145,7 @@ CREATE TABLE IF NOT EXISTS StockListReviews (
   reviewer_user_id INT,
   review_body VARCHAR(4000),
   updated_at TIMESTAMP,
-    PRIMARY KEY(stock_list_id, reviewer_user_id),
+  PRIMARY KEY(stock_list_id, reviewer_user_id),
   FOREIGN KEY(stock_list_id) REFERENCES StockLists(id),
   FOREIGN KEY(reviewer_user_id) REFERENCES Users(id)
 )
