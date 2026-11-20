@@ -105,7 +105,8 @@ CREATE TABLE IF NOT EXISTS FriendStates (
   low_user_id INT,
   high_user_id INT,
   friend_state VARCHAR(16),
-  requester_user_id INT,
+  outgoing_user_id INT,
+  incoming_user_id INT,
   requested_at TIMESTAMP
   PRIMARY KEY(low_user_id, high_user_id),
   FOREIGN KEY(low_user_id) REFERENCES Users(id),
