@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS StockTransactions (
   FOREIGN KEY(stock_symbol) REFERENCES Stocks(symbol)
 )
 
-CREATE TABLE IF NOT EXISTS HistDays (
+CREATE TABLE IF NOT EXISTS HistData (
   stock_symbol VARCHAR(16),
   at_date DATE,
   open_price REAL,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS HistDays (
   FOREIGN KEY(stock_symbol) REFERENCES Stocks(symbol)
 )
 
-CREATE TABLE IF NOT EXISTS NewDays (
+CREATE TABLE IF NOT EXISTS NewData (
   stock_symbol VARCHAR(16),
   at_date DATE,
   open_price REAL,
@@ -75,6 +75,15 @@ CREATE TABLE IF NOT EXISTS NewDays (
   PRIMARY KEY(stock_symbol, at_date),
   FOREIGN KEY(stock_symbol) REFERENCES Stocks(symbol)
 )
+
+CREATE VIEW IF NOT EXISTS Data AS
+  SELECT stock_symbol, at_date, open_price, close_price, high_price, low_price, trade_volume
+  FROM HistData
+
+  UNION 
+
+  SELECT stock_symbol, at_date, open_price, close_price, high_price, low_price, trade_volume
+  FROM HistData
 
 CREATE TABLE IF NOT EXISTS StockStats (
   stock_symbol VARCHAR(16),
