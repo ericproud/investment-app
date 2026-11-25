@@ -1,0 +1,10 @@
+{
+  "name": "investment-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CSCC43 Fall 2026 investment application",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}
