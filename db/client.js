@@ -9,5 +9,8 @@ if (!connectionString) {
   );
 }
 
-export const db = createConnectionPool(connectionString);
+export const db = createConnectionPool({
+  connectionString,
+  bigIntMode: 'number',
+});
 export { sql };
