@@ -2,7 +2,8 @@ import { db, sql } from '../client.js';
 
 export async function getStocks() {
   return db.query(sql`
-    SELECT *
-    FROM Stocks;
+    SELECT symbol
+    FROM Stocks
+    ORDER BY symbol;
   `);
 }

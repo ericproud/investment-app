@@ -1,15 +1,16 @@
 import { db, sql } from '../client.js';
 
-export async function getStockStats(stock_symbol_1, stock_symbol_2, from_date, to_date) {
-  const low_stock_symbol = stock_symbol_1 <= stock_symbol_2 ? stock_symbol_1 : stock_symbol_2;
-  const high_stock_symbol = stock_symbol_1 <= stock_symbol_2 ? stock_symbol_2 : stock_symbol_1;
-
-  return db.query(sql`
-    SELECT covariance, correlation
+export async function getStockPairStats(stockSymbol1, stockSymbol2, fromDate, toDate) {
+  const lowStockSymbol = stockSymbol1 <= stockSymbol2 ? stockSymbol1 : stockSymbol2;
+  const highStockSymbol = stockSymbol1 <= stockSymbol2 ? stockSymbol2 : stockSymbol1;
+  const rows = await db.query(sql`
+    SELECT covariance, correlation, computed_at
     FROM StockPairStats
-    WHERE low_stock_symbol=${low_stock_symbol}
-      AND high_stock_symbol=${high_stock_symbol}
-      AND from_date=${from_date}
-      AND to_date=${to_date};
+    WHERE low_stock_symbol=${lowStockSymbol}
+      AND high_stock_symbol=${highStockSymbol}
+      AND from_date=${fromDate}
+      AND to_date=${toDate};
   `);
+
+  return rows[0] ?? null;
 }
