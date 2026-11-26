@@ -1,11 +1,9 @@
-import connect, { sql } from "@databases/pg";
-
-const db = connect();
+import { db, sql } from '../client.js';
 
 export async function getPortfolioHoldings(portfolio_id) {
-  return await db.query(sql`
+  return db.query(sql`
     SELECT stock_symbol, num_shares
     FROM PortfolioHoldings
-    WHERE portfolio_id=${portfolio_id}
-    ;`);
+    WHERE portfolio_id=${portfolio_id};
+  `);
 }

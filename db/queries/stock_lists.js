@@ -1,36 +1,32 @@
-import connect, { sql } from "@databases/pg";
-
-const db = connect();
-
-// EVERY FUNCTION NEEDS AUTH
+import { db, sql } from '../client.js';
 
 export async function getMyStockLists(user_id) {
-  return await db.query(sql`
+  return db.query(sql`
     SELECT id, label, is_public
     FROM StockLists
-    WHERE user_id=${user_id}
-    ;`);
+    WHERE user_id=${user_id};
+  `);
 }
 
 export async function getPublicStockLists() {
-  return await db.query(sql`
+  return db.query(sql`
     SELECT id, user_id, label, is_public
     FROM StockLists
-    WHERE is_public IS TRUE
-    ;`);
+    WHERE is_public IS TRUE;
+  `);
 }
 
 export async function getSharedWithMeStockLists(user_id) {
-  return await db.query(sql`
+  return db.query(sql`
     SELECT StockLists.id, StockLists.user_id, StockLists.label, StockLists.is_public
     FROM StockLists
     JOIN StockListShares ON StockLists.id=StockListShares.stock_list_id
-    WHERE StockListShares.recipient_user_id=${user_id}
-    ;`);
+    WHERE StockListShares.recipient_user_id=${user_id};
+  `);
 }
 
 export async function getViewableByMeStockLists(user_id) {
-  return await db.query(sql`
+  return db.query(sql`
     SELECT id, user_id, label, is_public
     FROM StockLists
     WHERE is_public IS TRUE
@@ -40,6 +36,6 @@ export async function getViewableByMeStockLists(user_id) {
     SELECT StockLists.id, StockLists.user_id, StockLists.label, StockLists.is_public
     FROM StockLists
     JOIN StockListShares ON StockLists.id=StockListShares.stock_list_id
-    WHERE StockListShares.recipient_user_id=${user_id}
-    ;`);
+    WHERE StockListShares.recipient_user_id=${user_id};
+  `);
 }

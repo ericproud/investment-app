@@ -1,11 +1,9 @@
-import connect, { sql } from "@databases/pg";
-
-const db = connect();
+import { db, sql } from '../client.js';
 
 export async function getUserDisplayName(user_id) {
-  return await db.query(sql`
+  return db.query(sql`
     SELECT display_name
     FROM Users
-    WHERE user_id=${user_id}
-    ;`);
+    WHERE id=${user_id};
+  `);
 }

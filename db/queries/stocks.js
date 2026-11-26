@@ -1,10 +1,8 @@
-import connect, { sql } from "@databases/pg";
-
-const db = connect();
+import { db, sql } from '../client.js';
 
 export async function getStocks() {
-  return await db.query(sql`
+  return db.query(sql`
     SELECT *
-    FROM Stocks
-    ;`);
+    FROM Stocks;
+  `);
 }

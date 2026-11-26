@@ -1,13 +1,9 @@
-import connect, { sql } from "@databases/pg";
-
-const db = connect();
-
-// EVERY FUNCTION NEEDS AUTH
+import { db, sql } from '../client.js';
 
 export async function getStockListReviewsForStockList(stock_list_id) {
-  return await db.query(sql`
+  return db.query(sql`
     SELECT reviewer_user_id, review_body, updated_at
-    FROM StockListRevies
-    WHERE stock_list_id=${stock_list_id}
-    ;`);
+    FROM StockListReviews
+    WHERE stock_list_id=${stock_list_id};
+  `);
 }
