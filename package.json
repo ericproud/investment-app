@@ -9,13 +9,16 @@
   },
   "scripts": {
     "start": "node app.js",
-    "check": "node --check app.js && node --check db/client.js && node --check scripts/db-smoke.js && node --check scripts/db-init.js && node --check scripts/db-reset.js",
+    "check": "node --check app.js && node --check db/client.js && node --check scripts/db-smoke.js && node --check scripts/db-init.js && node --check scripts/db-reset.js && node --check scripts/db-load-history.js",
     "db:smoke": "node scripts/db-smoke.js",
     "db:init": "node scripts/db-init.js",
-    "db:reset": "node scripts/db-reset.js"
+    "db:reset": "node scripts/db-reset.js",
+    "db:load-history": "node scripts/db-load-history.js"
   },
   "dependencies": {
     "@databases/pg": "^6.1.0",
-    "dotenv": "^18.0.10"
+    "dotenv": "^18.0.10",
+    "pg": "^8.23.1",
+    "pg-copy-streams": "^7.0.0"
   }
 }
