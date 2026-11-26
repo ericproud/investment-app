@@ -9,8 +9,10 @@
   },
   "scripts": {
     "start": "node app.js",
-    "check": "node --check app.js && node --check db/client.js && node --check scripts/db-smoke.js",
-    "db:smoke": "node scripts/db-smoke.js"
+    "check": "node --check app.js && node --check db/client.js && node --check scripts/db-smoke.js && node --check scripts/db-init.js && node --check scripts/db-reset.js",
+    "db:smoke": "node scripts/db-smoke.js",
+    "db:init": "node scripts/db-init.js",
+    "db:reset": "node scripts/db-reset.js"
   },
   "dependencies": {
     "@databases/pg": "^6.1.0",

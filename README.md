@@ -6,6 +6,7 @@ Fall 2026 CSCC43 database project.
 
 - Node.js 20+
 - PostgreSQL 19
+- PostgreSQL database/user with create/drop access
 
 ## Setup
 
@@ -22,4 +23,8 @@ Set `DATABASE_URL` in `.env`.
 npm start
 npm run check
 npm run db:smoke
+npm run db:init
+npm run db:reset
 ```
+
+`db:reset` deletes project data and rebuilds the schema.
