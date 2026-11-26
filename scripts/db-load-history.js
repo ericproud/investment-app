@@ -5,6 +5,11 @@ import { resolve } from 'node:path';
 import { pipeline } from 'node:stream/promises';
 import pg from 'pg';
 import { from as copyFrom } from 'pg-copy-streams';
+import {
+  assertHistorySummary,
+  getHistorySummary,
+  printHistorySummary,
+} from './history-verification.js';
 
 const connectionString = process.env.DATABASE_URL;
 const csvPath = resolve(process.argv[2] ?? 'SP500History.csv');
@@ -98,9 +103,13 @@ try {
     await client.query('DELETE FROM StockPairStats');
   }
 
+  const summary = await getHistorySummary(client);
+  assertHistorySummary(summary);
+
   await client.query('COMMIT');
   console.log(`Historical data loaded from ${csvPath}.`);
   console.log(`Inserted ${result.rowCount} rows.`);
+  printHistorySummary(summary);
 } catch (error) {
   await client.query('ROLLBACK');
   throw error;

@@ -9,11 +9,12 @@
   },
   "scripts": {
     "start": "node app.js",
-    "check": "node --check app.js && node --check db/client.js && node --check scripts/db-smoke.js && node --check scripts/db-init.js && node --check scripts/db-reset.js && node --check scripts/db-load-history.js",
+    "check": "node --check app.js && node --check db/client.js && node --check scripts/db-smoke.js && node --check scripts/db-init.js && node --check scripts/db-reset.js && node --check scripts/db-load-history.js && node --check scripts/history-verification.js && node --check scripts/db-verify-history.js",
     "db:smoke": "node scripts/db-smoke.js",
     "db:init": "node scripts/db-init.js",
     "db:reset": "node scripts/db-reset.js",
-    "db:load-history": "node scripts/db-load-history.js"
+    "db:load-history": "node scripts/db-load-history.js",
+    "db:verify-history": "node scripts/db-verify-history.js"
   },
   "dependencies": {
     "@databases/pg": "^6.1.0",

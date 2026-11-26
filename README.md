@@ -26,6 +26,7 @@ npm run db:smoke
 npm run db:init
 npm run db:reset
 npm run db:load-history -- C:\path\SP500History.csv
+npm run db:verify-history
 ```
 
 `db:reset` deletes project data and rebuilds the schema.
