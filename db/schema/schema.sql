@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS PortfolioHoldings (
 
 CREATE TABLE IF NOT EXISTS CashTransactions (
   id INT GENERATED ALWAYS AS IDENTITY,
-  portfolio_id INT,
-  cash_transaction_type VARCHAR(16),
-  amount REAL,
+  portfolio_id INT NOT NULL,
+  cash_transaction_type VARCHAR(16) NOT NULL CHECK (cash_transaction_type IN ('withdrawal', 'deposit', 'transfer_in', 'transfer_out')),
+  amount REAL NOT NULL CHECK (amount > 0),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY(id),
   FOREIGN KEY(portfolio_id) REFERENCES Portfolios(id)
